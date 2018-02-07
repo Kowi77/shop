@@ -134,7 +134,27 @@
             <version>${spring-framework.data.version}</version>
         </dependency>
 
-       <!--Spring Security-->
+        <!--Jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- Spring REST jackson JSON Processing API -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+
+
+        <!--Spring Security-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -164,11 +184,11 @@
             <version>1.0</version>
         </dependency>
 
-        <!-- Spring REST jackson JSON Processing API -->
+        <!--Lombok annotations-->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.databind-version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.0</version>
         </dependency>
 
     </dependencies>

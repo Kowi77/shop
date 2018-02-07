@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -14,12 +15,15 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
 @PropertySource(value = "classpath:util.properties")
+@EnableJpaRepositories("kov.develop.mvc.repository")
 public class ApplicationConfig {
 
     /**
@@ -111,10 +115,11 @@ public class ApplicationConfig {
         return em;
     }
 
-    @Bean(name = "jpaTransactionManager")
-    public JpaTransactionManager getJpaTransactionManager() {
-        JpaTransactionManager jpa = new JpaTransactionManager();
-        jpa.setEntityManagerFactory(getLocalContainerEntityManagerFactoryBean().getNativeEntityManagerFactory());
-        return jpa;
+    @Bean
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(getLocalContainerEntityManagerFactoryBean().getObject());
+        return transactionManager;
     }
+
 }

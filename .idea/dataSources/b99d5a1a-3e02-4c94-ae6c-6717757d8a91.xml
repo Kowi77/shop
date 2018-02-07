@@ -32,13 +32,12 @@
     </column>
     <column id="22" parent="18" name="NAME">
       <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(60)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="23" parent="18" name="DESCRIPTION">
       <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
+      <DataType>varchar(60)|0</DataType>
     </column>
     <column id="24" parent="18" name="PRICE">
       <Position>4</Position>
@@ -73,38 +72,57 @@
     <column id="30" parent="19" name="PRICE">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="31" parent="19" name="QUANTITY">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="32" parent="19" name="PRIMARY">
+    <index id="32" parent="19" name="FK_PUR_GOOD">
+      <ColNames>GOOD_ID</ColNames>
+    </index>
+    <index id="33" parent="19" name="FK_PUR_USER">
+      <ColNames>USER_ID</ColNames>
+    </index>
+    <key id="34" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="33" parent="20" name="ID">
+    <foreign-key id="35" parent="19" name="FK_PUR_USER">
+      <ColNames>USER_ID</ColNames>
+      <RefSchemaName>myshop</RefSchemaName>
+      <RefTableName>users</RefTableName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="36" parent="19" name="FK_PUR_GOOD">
+      <ColNames>GOOD_ID</ColNames>
+      <RefSchemaName>myshop</RefSchemaName>
+      <RefTableName>goods</RefTableName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="37" parent="20" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="34" parent="20" name="USERNAME">
+    <column id="38" parent="20" name="USERNAME">
       <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(60)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="20" name="PASSWORD">
+    <column id="39" parent="20" name="PASSWORD">
       <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(12)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="20" name="ROLE">
+    <column id="40" parent="20" name="ROLE">
       <Position>4</Position>
       <DataType>varchar(5)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="37" parent="20" name="PRIMARY">
+    <key id="41" parent="20" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
