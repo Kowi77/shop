@@ -1,0 +1,120 @@
+package kov.develop.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Properties;
+
+@Configuration
+@PropertySource(value = "classpath:util.properties")
+public class ApplicationConfig {
+
+    /**
+     * @PropertySource annotation does not automatically
+     * register a PropertySourcesPlaceholderConfigurer with Spring.
+     * So we need to initialize this bean.
+     */
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Value("${jdbc.driverClass}")
+    private String driverClass;
+    @Value("${jdbc.url}")
+    private String jdbcUrl;
+    @Value("${jdbc.username}")
+    private String jdbcUserName;
+    @Value("${jdbc.password}")
+    private String jdbcPassword;
+
+    @Value("classpath:dbschema.sql")
+    private Resource dbschemaSqlScript;
+    @Value("classpath:test-data.sql")
+    private Resource testDataSqlScript;
+
+    /**
+     * <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+     */
+    @Bean(name = "dataSource")
+    public DriverManagerDataSource getDriverManagerDataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(driverClass);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(jdbcUserName);
+        dataSource.setPassword(jdbcPassword);
+        return dataSource;
+    }
+
+    /**
+     * <jdbc:initialize-database data-source="dataSource">
+     * initialize Embedded DataSource. Встроенная база данных
+     */
+    @Bean
+    public DataSourceInitializer dataSourceInitializer() {
+        final DataSourceInitializer initializer = new DataSourceInitializer();
+        initializer.setDataSource(getDriverManagerDataSource());
+        initializer.setDatabasePopulator(getDatabasePopulator());
+        return initializer;
+    }
+
+    private DatabasePopulator getDatabasePopulator() {
+        final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.addScript(dbschemaSqlScript);
+        populator.addScript(testDataSqlScript);
+        return populator;
+    }
+
+    /**
+     *  <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+     */
+    @Bean(name = "restTemplate")
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
+    /**
+     * <bean id="entityManagerFactory"
+     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+     */
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean getLocalContainerEntityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setPackagesToScan("kov.develop.mvc.model");
+        em.setDataSource(getDriverManagerDataSource());
+
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        ((HibernateJpaVendorAdapter)vendorAdapter).setGenerateDdl(true);
+        ((HibernateJpaVendorAdapter)vendorAdapter).setShowSql(true);
+        em.setJpaVendorAdapter(vendorAdapter);
+
+        Properties jpaProperties = new Properties();
+        jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
+        jpaProperties.put("hibernate.show_sql",true);
+        jpaProperties.put("hibernate.format_sql","false");
+        jpaProperties.put("hibernate.hbm2ddl.auto","update");
+
+        em.setJpaProperties(jpaProperties);
+        return em;
+    }
+
+    @Bean(name = "jpaTransactionManager")
+    public JpaTransactionManager getJpaTransactionManager() {
+        JpaTransactionManager jpa = new JpaTransactionManager();
+        jpa.setEntityManagerFactory(getLocalContainerEntityManagerFactoryBean().getNativeEntityManagerFactory());
+        return jpa;
+    }
+}
