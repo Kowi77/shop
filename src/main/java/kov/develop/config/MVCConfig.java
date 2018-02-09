@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -13,28 +14,25 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"kov.develop"})
+@ComponentScan(basePackages = {"kov.develop.mvc"})
 public class MVCConfig extends WebMvcConfigurerAdapter {
 
-    /**
-     * <mvc:resources mapping="/resources/**" location="/resources/" />
-     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
-    /**
-     * bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-     */
     @Bean
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -44,9 +42,6 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    /**
-     *     <mvc:view-controller path="/main.html" view-name="/main"/>
-     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         super.addViewControllers(registry);
@@ -54,6 +49,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("/index");
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/main.html").setViewName("/main");
+        registry.addViewController("/login.html").setViewName("/login");
     }
 
     @Override
@@ -67,23 +63,36 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8, MediaType.TEXT_PLAIN, MediaType.TEXT_HTML));
         converter.setObjectMapper(objectMapper);
         converters.add(converter);
+        converter.setPrettyPrint(true);
         super.configureMessageConverters(converters);
     }
-/*
-    @Bean(name = "jacksonHttpMessageConverter")
-    public MappingJackson2HttpMessageConverter getJacksonHttpMessageConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setPrettyPrint(true);
-        return converter;
-    }*/
 
-    /**
-     * <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-     */
- /*   @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver getMultipartResolver() {
-        CommonsMultipartResolver cmr = new CommonsMultipartResolver();
-        cmr.setMaxUploadSize(1000000);
-        return cmr;
-    }*/
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(getLocaleChangeInterceptor()).addPathPatterns("/*");
+    }
+
+    @Bean(name = "localeChangeInterceptor")
+    public LocaleChangeInterceptor getLocaleChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("languageVar");
+        return localeChangeInterceptor;
+    }
+
+    @Bean(name = "localeResolver")
+    public CookieLocaleResolver getLocaleResolver() {
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(new Locale("ru"));
+        cookieLocaleResolver.setCookieMaxAge(100000);
+        return cookieLocaleResolver;
+    }
+
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource getMessageSource() {
+        ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+        resource.setBasename("classpath:/locales/messages");
+        resource.setCacheSeconds(1);
+        resource.setDefaultEncoding("UTF-8");
+        return resource;
+    }
 }

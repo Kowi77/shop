@@ -2,6 +2,7 @@ package kov.develop.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -24,6 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:util.properties")
 @EnableJpaRepositories("kov.develop.mvc.repository")
+@ComponentScan(basePackages = "kov.develop.config")
 public class ApplicationConfig {
 
     /**
@@ -50,9 +52,6 @@ public class ApplicationConfig {
     @Value("classpath:test-data.sql")
     private Resource testDataSqlScript;
 
-    /**
-     * <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-     */
     @Bean(name = "dataSource")
     public DriverManagerDataSource getDriverManagerDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -63,10 +62,6 @@ public class ApplicationConfig {
         return dataSource;
     }
 
-    /**
-     * <jdbc:initialize-database data-source="dataSource">
-     * initialize Embedded DataSource. Встроенная база данных
-     */
     @Bean
     public DataSourceInitializer dataSourceInitializer() {
         final DataSourceInitializer initializer = new DataSourceInitializer();
@@ -82,18 +77,11 @@ public class ApplicationConfig {
         return populator;
     }
 
-    /**
-     *  <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
-     */
     @Bean(name = "restTemplate")
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
 
-    /**
-     * <bean id="entityManagerFactory"
-     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
-     */
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getLocalContainerEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();

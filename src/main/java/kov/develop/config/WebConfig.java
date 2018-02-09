@@ -15,12 +15,13 @@ import javax.servlet.ServletRegistration;
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 
-    @Override
+   /* @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(ApplicationConfig.class);//, SecurityConfig.class);
 
-        servletContext.addListener(new ContextLoaderListener(rootContext));
+       AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+        rootContext.register(ApplicationConfig.class);
+
+       servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //Create the dispatcher servlet's Spring application context
         AnnotationConfigWebApplicationContext servletAppContext = new AnnotationConfigWebApplicationContext();
@@ -41,21 +42,22 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         encodingFilter.setInitParameter("forceEncoding", "true");
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");
 
-    }
+    }*/
 
      //added to load spring security filter in root context (created in onStartup())
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {SecurityConfig.class};
+
+        return new Class[] {ApplicationConfig.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[] {"/"};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[0];
+        return new Class [0];
     }
 }

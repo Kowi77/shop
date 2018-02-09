@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ContextConfiguration(classes = {ApplicationConfig.class, MVCConfig.class, WebConfig.class}) //, SpringSecurityInit.class, SecurityConfig.class})
+@ContextConfiguration(classes = {ApplicationConfig.class, MVCConfig.class, WebConfig.class, SpringSecurityInit.class, SecurityConfig.class})
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional

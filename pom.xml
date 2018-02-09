@@ -28,7 +28,7 @@
         <!-- Spring Data -->
         <spring-framework.data.version>1.9.1.RELEASE</spring-framework.data.version>
         <!-- Spring Security -->
-        <spring-security.version>4.0.4.RELEASE</spring-security.version>
+        <spring-security.version>3.2.4.RELEASE</spring-security.version>
         <jackson.databind-version>2.2.3</jackson.databind-version>
     </properties>
 
