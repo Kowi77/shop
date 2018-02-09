@@ -1,5 +1,6 @@
 package kov.develop.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -12,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+@ComponentScan(basePackages = "kov.develop.mvc.controller")
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 

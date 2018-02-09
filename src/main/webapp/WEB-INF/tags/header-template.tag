@@ -6,7 +6,7 @@
 
 
 <c:url value="/index.html" var="index"/>
-<c:url value="/main.html" var="main"/>
+<%--<c:url value="/admin.html" var="admin"/>--%>
 <c:url value="/login.html" var="login"/>
 
 
@@ -59,7 +59,7 @@
                             <a href="${index}">Домой</a>
                         </li>
                         <li>
-                            <a href="${main}">Покупки</a>
+                            <a href="/admin">Покупки</a>
                         </li>
                     </ul>
                 </li>

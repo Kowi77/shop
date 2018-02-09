@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -37,7 +38,7 @@ public class Good implements Serializable {
     private String description;
 
     @Column(name = "price")
-    @NotBlank(message = "Good's price must be not empty!")
+    @NotNull(message = "Good's price must be not empty!")
     @JsonProperty("price")
     private Double price;
 

@@ -1,0 +1,45 @@
+.alert{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+}
+.container-fluid{
+    border: 2px solid #cdffc9;
+    border-radius: 10px;
+    background-color: #effbee;
+}
+
+.glyphicon {
+    cursor: pointer;
+}
+
+.glyphicon glyphicon-remove{
+    color: red;
+}
+.btn btn-primary {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+li > a {
+    cursor: pointer;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+#my-drop-down-menu li:hover ul.child{
+    left:auto;
+}
+
+#my-drop-down-menu li a.link{
+    display:block;
+    padding:5px;
+}
+
+#my-drop-down-menu li:hover a.link{
+    background: #463935;
+}
