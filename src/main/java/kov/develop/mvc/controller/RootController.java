@@ -22,12 +22,16 @@ public class RootController {
         this.goodService = goodService;
     }
 
-    //Базовая страница приложения
     @GetMapping("/admin")
     public String root(Model model) {
         model.addAttribute("goods", goodService.findAll());
-        model.addAttribute("purchasings", purchasingService.findAll());
+       // model.addAttribute("purchasings", purchasingService.findAll());
         return "admin";
+    }
+
+    @GetMapping("/purchasings")
+    public String root() {
+        return "purchasings";
     }
 
 }

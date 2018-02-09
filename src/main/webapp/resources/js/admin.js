@@ -1,9 +1,11 @@
 var ajaxGoods = "goods/";
 var ajaxGood = "good/";
+var ajaxPurs = "admin/purchasings/"
 var datatableApi;
+var datatableApiPur;
 var form=$('#detailsForm');
 
-$.ajaxSetup({
+/*$.ajaxSetup({
     converters: {
         "text json": function (stringData) {
             var json = JSON.parse(stringData);
@@ -17,7 +19,7 @@ $.ajaxSetup({
             return json;
         }
     }
-});
+});*/
 
 function updateTable() {
     $.ajax({
@@ -70,12 +72,10 @@ function save() {
     });
 }
 
-//Отрисовка таблицы отфильтрованными данными
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }
 
-//Datatable
 $(function () {
     datatableApi = $("#datatable").DataTable({
         "ajax": {
@@ -102,6 +102,27 @@ $(function () {
         "initComplete": errorHandling
     });
 });
+
+$(function () {
+    datatableApiPur = $("#datatablePur").DataTable({
+        "ajax": {
+            "url": ajaxPurs,
+            "dataSrc": ""
+        },
+        "paging": true,
+        "info": false,
+        "columns": [
+            {"data": "user_id"},
+            {"data": "good_id"},
+            {"data": "date"},
+            {"data": "price"},
+            {"data": "quantity"}
+        ],
+        "order": [[0,"asc"]],
+        "initComplete": errorHandling
+    });
+});
+
 
 function renderEditBtn(data, type, row) {
     if (type === "display") {

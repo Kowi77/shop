@@ -1,20 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Internet-shop</title>
-</head>
-<body>
-
-</body>
-</html>
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <head>
     <script type="text/javascript" src="resources/js/admin.js" defer></script>
+    <title>Internet-shop</title>
 </head>
 
 <page:template>
@@ -24,6 +13,7 @@
     <jsp:body>
 
         <header></header>
+
          <div class="container-fluid">
             <h2>Список доступных товаров</h2>
              <a class="btn btn-primary" onclick="add()">
@@ -36,15 +26,31 @@
                     <th>Описание</th>
                     <th>Цена</th>
                     <th>Количество</th>
-                    <th>Редактировать</th>
-                    <th>Удалить</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
 
-        <%--Form for add/edit user--%>
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <spring:message code="content.introMsg"/>
+            </h1>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-fw fa-check"></i> Список покупок</h4>
+                </div>
+                <div class="panel-body">
+                    <a href="/purchasings" class="btn btn-default">Ознакомиться</a>
+                </div>
+            </div>
+        </div>
+
+        <%--Form for add/edit good--%>
         <div class="modal fade" id="editRow">
             <div class="modal-dialog">
                 <div class="modal-content">

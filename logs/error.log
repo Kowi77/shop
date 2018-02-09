@@ -4106,3 +4106,4 @@ Caused by: java.lang.IllegalArgumentException: ROLE_ADMIN cannot start with ROLE
 	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.2.4.RELEASE.jar:4.2.4.RELEASE]
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331) ~[spring-beans-4.2.4.RELEASE.jar:4.2.4.RELEASE]
 	... 58 common frames omitted
+ERROR SqlExceptionHelper - Cannot delete or update a parent row: a foreign key constraint fails (`myshop`.`purchasings`, CONSTRAINT `FK_PUR_GOOD` FOREIGN KEY (`GOOD_ID`) REFERENCES `goods` (`ID`))

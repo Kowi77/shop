@@ -8,8 +8,10 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "purchasings")
@@ -28,15 +30,17 @@ public class Purchasing implements Serializable {
     @Column(name = "user_id")
     @JsonProperty("user_id")
     @NotBlank(message = "User's id must be not empty!")
-    //@ManyToOne(cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "id")
     private Integer user_id;
 
     @Column(name = "good_id")
     @JsonProperty("good_id")
     @NotBlank(message = "Good's id must be not empty!")
-    //@ManyToOne
     private Integer good_id;
+
+    @Column(name = "date")
+    @JsonProperty("date")
+    @NotNull
+    private LocalDate date;
 
     @Column(name = "price")
     @NotBlank(message = "Good's price must be not empty!")

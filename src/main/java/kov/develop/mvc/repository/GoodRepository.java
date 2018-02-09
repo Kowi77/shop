@@ -22,4 +22,7 @@ public interface GoodRepository extends JpaRepository<Good, Integer> {
 
     @Override
     Good findOne(Integer integer);
+
+    @Override
+    void delete(Integer integer);
 }

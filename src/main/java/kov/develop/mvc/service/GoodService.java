@@ -30,4 +30,6 @@ public class GoodService {
     public Good get(Integer integer) {
         return repository.findOne(integer);
     }
+
+    public void delete(Integer id) { repository.delete(id);}
 }
