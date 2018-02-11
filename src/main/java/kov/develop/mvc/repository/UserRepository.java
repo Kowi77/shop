@@ -15,7 +15,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAll();
 
     @Override
-    @Transactional
     User save(User user);
 
     @Override
@@ -23,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Override
     User findOne(Integer integer);
+
+    User findByUsername(String username);
 }

@@ -14,7 +14,6 @@ public interface GoodRepository extends JpaRepository<Good, Integer> {
     List<Good> findAll();
 
     @Override
-    @Transactional
     Good save(Good good);
 
     @Override

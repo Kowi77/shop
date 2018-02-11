@@ -36,7 +36,7 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4><i class="fa fa-fw fa-check"></i>Если Вы администратор, Вам сюда</h4>
+              <h4><i class="fa fa-fw fa-check"></i>Если Вы администратор</h4>
             </div>
             <div class="panel-body">
               <a href="/admin" class="btn btn-default">Я админ</a>
@@ -46,10 +46,20 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4><i class="fa fa-fw fa-gift"></i>А если пользователь, то сюда</h4>
+              <h4><i class="fa fa-fw fa-gift"></i>Если Вы наш покупатель</h4>
             </div>
             <div class="panel-body">
-              <a href="/user" class="btn btn-default">Я пользователь</a>
+              <a href="/user" class="btn btn-default">Я покупатель</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><i class="fa fa-fw fa-gift"></i>Если Вы еще не наш покупатель</h4>
+            </div>
+            <div class="panel-body">
+              <a href="/registration" class="btn btn-default">Регистрация</a>
             </div>
           </div>
         </div>

@@ -55,7 +55,7 @@
     <a href= "javascript:history.back()">Назад</a>
 
     <br /><br />
-    <p>Доступные роли:</p>
+    <p>Дефолтные админ и покупатель:</p>
 
     <b>ADMIN</b> <br />
     Login:<span style= "color: royalblue">Andrey</span> Password: <span style= "color: royalblue">12345</span> <br />

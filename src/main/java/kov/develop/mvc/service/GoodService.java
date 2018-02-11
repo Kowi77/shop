@@ -5,6 +5,7 @@ import kov.develop.mvc.repository.GoodRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,8 +24,24 @@ public class GoodService {
         return repository.findAll();
     }
 
+    @Transactional
     public Good save(Good good) {
         return repository.save(good);
+    }
+
+    @Transactional
+    public Good purchase(Good good) {
+        Integer quantity = get(good.getId()).getQuantity();
+        if (quantity >= good.getQuantity()) {
+            try {
+                good.setQuantity(quantity - good.getQuantity());
+                return save(good);
+            } catch (Exception e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public Good get(Integer integer) {

@@ -12,25 +12,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class RootController {
 
-    private UserService userService;
-    private PurchasingService purchasingService;
-    private GoodService goodService;
-
-    public RootController(UserService userService, PurchasingService purchasingService, GoodService goodService) {
-        this.userService = userService;
-        this.purchasingService = purchasingService;
-        this.goodService = goodService;
-    }
-
     @GetMapping("/admin")
-    public String root(Model model) {
-        model.addAttribute("goods", goodService.findAll());
-       // model.addAttribute("purchasings", purchasingService.findAll());
+    public String admin() {
         return "admin";
     }
 
+    @GetMapping("/user")
+    public String user() {
+        return "user";
+    }
+
+    @GetMapping("/registration")
+    public String registration() {
+        return "registration";
+    }
+
     @GetMapping("/purchasings")
-    public String root() {
+    public String purchasings() {
         return "purchasings";
     }
 
