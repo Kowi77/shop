@@ -6,13 +6,8 @@
 </head>
 
 <page:template>
-
-    <jsp:attribute name="title">Zlatan1</jsp:attribute>
-
     <jsp:body>
-
         <header></header>
-
          <div class="container-fluid">
             <h2>Список доступных товаров</h2>
              <a class="btn btn-primary" onclick="add()">

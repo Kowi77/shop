@@ -1,8 +1,8 @@
-var ajaxGoods = "goods/";
+var ajaxGoods = "user/goods/";
 var ajaxGood = "good/";
 var ajaxPur = "user/purchase/";
 var datatableApi;
-var form=$('#bucket');
+var form=$('#basket');
 
 function updateTable() {
     $.ajax({
@@ -38,10 +38,6 @@ function purchase(username) {
     });
 }
 
-function updateTableByData(data) {
-    datatableApi.clear().rows.add(data).draw();
-}
-
 $(function () {
     datatableApi = $("#datatable").DataTable({
         "ajax": {
@@ -70,24 +66,4 @@ function renderPurBtn(data, type, row) {
         return "<a onclick='choise(" + row.id + ");'>" +
             "<span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></a>";
     }
-}
-
-//User's noties creating
-
-function errorHandling() {
-    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        errorNoty(jqXHR.status, jqXHR.responseText);
-    });
-}
-
-function successNoty(message) {
-    $("#success").css({"display" : ""});
-    $("#success").html(message);
-    setTimeout(function(){$("#success").css({"display" : "none"})}, 5000);
-}
-
-function errorNoty(status, respounce) {
-    $("#error").css({"display" : ""});
-    $("#error").html("Статус ошибки: " + status + "<br>" + respounce);
-    setTimeout(function(){$("#error").css({"display" : "none"})}, 7000);
 }

@@ -5,22 +5,6 @@ var datatableApi;
 var datatableApiPur;
 var form=$('#detailsForm');
 
-/*$.ajaxSetup({
-    converters: {
-        "text json": function (stringData) {
-            var json = JSON.parse(stringData);
-            $(json).each(function () {
-                this.date = this.date.replace('T', ' ').substr(0, 16);
-                console.log(this.employer);
-                n = this.employer.split(' ');
-                this.employer = n[0] + " " + n[1].substr(0,1) + ". " + n[2].substr(0, 1) + ".";
-                console.log(this.employer);
-            });
-            return json;
-        }
-    }
-});*/
-
 function updateTable() {
     $.ajax({
         type: "GET",
@@ -72,10 +56,6 @@ function save() {
     });
 }
 
-function updateTableByData(data) {
-    datatableApi.clear().rows.add(data).draw();
-}
-
 $(function () {
     datatableApi = $("#datatable").DataTable({
         "ajax": {
@@ -112,8 +92,8 @@ $(function () {
         "paging": true,
         "info": false,
         "columns": [
-            {"data": "user_id"},
-            {"data": "good_id"},
+            {"data": "username"},
+            {"data": "goodname"},
             {"data": "date"},
             {"data": "price"},
             {"data": "quantity"}
@@ -134,24 +114,4 @@ function renderEditBtn(data, type, row) {
 function renderDeleteBtn(data, type, row) {
     return "<a onclick='deleteRow(" + row.id + ");'>" +
         "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
-}
-
-//User's noties creating
-
-function errorHandling() {
-    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        errorNoty(jqXHR.status, jqXHR.responseText);
-    });
-}
-
-function successNoty(message) {
-    $("#success").css({"display" : ""});
-    $("#success").html(message);
-    setTimeout(function(){$("#success").css({"display" : "none"})}, 5000);
-}
-
-function errorNoty(status, respounce) {
-    $("#error").css({"display" : ""});
-    $("#error").html("Статус ошибки: " + status + "<br>" + respounce);
-    setTimeout(function(){$("#error").css({"display" : "none"})}, 7000);
 }

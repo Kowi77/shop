@@ -18,9 +18,7 @@ public class RootController {
     }
 
     @GetMapping("/user")
-    public String user() {
-        return "user";
-    }
+    public String user() { return "user"; }
 
     @GetMapping("/registration")
     public String registration() {
@@ -30,6 +28,11 @@ public class RootController {
     @GetMapping("/purchasings")
     public String purchasings() {
         return "purchasings";
+    }
+
+    @GetMapping("/exception")
+    public String exception() {
+        return "exception";
     }
 
 }

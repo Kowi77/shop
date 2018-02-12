@@ -9,7 +9,7 @@
 <%@attribute name="header" fragment="true" %>
 <html>
 <head>
-    <title><jsp:invoke fragment="title"/></title>
+    <title><spring:message code="navMenu.home"/></title>
 
     <!-- Bootstrap Core CSS -->
     <spring:url value="/resources/css/bootstrap.css" var="bootstrap"/>
@@ -40,6 +40,8 @@
  <%--   <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" defer></script>--%>
     <script type="text/javascript" src="webjars/datatables/1.10.15/media/js/jquery.dataTables.min.js" defer></script>
     <script type="text/javascript" src="webjars/datatables/1.10.15/media/js/dataTables.bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="/resources/js/notiesHandling.js" defer></script>
+
 </head>
 
 <body>

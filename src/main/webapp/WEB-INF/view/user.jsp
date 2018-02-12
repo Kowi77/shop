@@ -35,7 +35,7 @@
                         <h2 class="modal-title" id="modalTitle"></h2>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" id="bucket">
+                        <form class="form-horizontal" id="basket">
                             <input type="hidden" id="id" name="id">
 
                             <div class="form-group">

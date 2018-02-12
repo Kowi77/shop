@@ -20,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    //UserRepository userRepository;
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
@@ -38,27 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return encoder;
     }
 
-
-/*    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        return authProvider;
-    }*/
-
-
-   /* @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT USERNAME, PASSWORD FROM USERS WHERE USERNAME=?")
-                .authoritiesByUsernameQuery("SELECT USERNAME, ROLE FROM USERS WHERE USERNAME = ?");
-    }*/
-
-   /* @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Andrey").password("12345").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("Zlatan").password("54321").roles("USER");
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

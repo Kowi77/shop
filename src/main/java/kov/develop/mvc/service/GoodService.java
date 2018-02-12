@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class GoodService {
 
-
     private GoodRepository repository;
 
     @Autowired
@@ -23,6 +22,11 @@ public class GoodService {
     public List<Good> findAll() {
         return repository.findAll();
     }
+
+    public List<Good> findAllNotZeroQuantity() {
+        return repository.findAllByQuantityGreaterThan(0);
+    }
+
 
     @Transactional
     public Good save(Good good) {
