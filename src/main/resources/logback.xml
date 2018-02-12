@@ -7,9 +7,8 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <!-- To enable JMX Management -->
     <jmxConfigurator/>
-    <!--Write logs in this file -->
+
     <property name="LOG_HOME" value="E:/Java/shop/logs" />
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -18,7 +17,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
         </encoder>
     </appender>
 
-    <!-- File Logging -->
+    <!-- File Error Logging -->
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_HOME}/error.log</file>
         <encoder>
@@ -27,13 +26,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
 
 
-    <!--<logger name="org.hibernate" level="debug"/> -->
-    <!-- Uncomment and add your logger here:
- <logger name="org.springframework.samples.service.service" level="debug"/> -->
-
     <root level="error">
-        <!-- uncomment file-->
-        <!--If you want to write to file - uncomment it-->
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>
     </root>
@@ -41,5 +34,6 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     <root level="info">
         <appender-ref ref="console"/>
     </root>
+
 
 </configuration>

@@ -1,4 +1,4 @@
-package kov.develop.mvc;
+package kov.develop.mvc.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

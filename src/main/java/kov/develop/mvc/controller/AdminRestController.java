@@ -3,10 +3,11 @@ package kov.develop.mvc.controller;
 import kov.develop.mvc.model.Good;
 import kov.develop.mvc.model.Purchasing;
 import kov.develop.mvc.model.PurchasingDto;
-import kov.develop.mvc.model.User;
 import kov.develop.mvc.service.GoodService;
 import kov.develop.mvc.service.PurchasingService;
 import kov.develop.mvc.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,11 +20,17 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-import static kov.develop.mvc.ControllerUtils.getErrors;
+import static kov.develop.mvc.utils.ControllerUtils.getErrors;
 
-@RestController
+/**
+ * Admin RESTful service for goods and purchasing
+ */
+
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController
 public class AdminRestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminRestController.class);
 
     private GoodService goodService;
     private PurchasingService purchasingService;
@@ -42,35 +49,15 @@ public class AdminRestController {
         return goodService.findAll();
     }
 
-    @Secured(value={"USER"})
-    @GetMapping("user/goods")
-    public List<Good> findAllGoodsNotZeroQuantity() {
-        return goodService.findAllNotZeroQuantity();
-    }
-
     @Secured(value={"ADMIN"})
     @PostMapping("good/save")
     public ResponseEntity<String> createOrUpdateGood(@Valid Good good, BindingResult result) {
         if (result.hasErrors()) {
+            LOGGER.error("Binding or validation error for good saving!");
             return getErrors(result);
         }
         goodService.save(good);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Secured(value={"USER"})
-    @PostMapping("user/purchase/{username}")
-    public ResponseEntity<String> purchasing(@Valid Good good, @PathVariable("username") String username, BindingResult result) {
-        if (result.hasErrors()) {
-            return getErrors(result);
-        }
-        Good good1 = goodService.purchase(good);
-        if (good1 != null) {
-            purchasingService.save(new Purchasing(null, userService.findByUsername(username).getId(), good.getId(), LocalDate.now(), good.getPrice(), good.getQuantity()));
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>(HttpStatus.CONFLICT);
-        }
     }
 
     @Secured(value={"ADMIN", "USER"})
@@ -85,23 +72,9 @@ public class AdminRestController {
         goodService.delete(id);
     }
 
-
     @Secured(value={"ADMIN"})
     @GetMapping("admin/purchasings")
     public List<PurchasingDto> findAllPurchasings() {
         return purchasingService.findAllDto();
-    }
-
-    @PostMapping("saveUser")
-    public ResponseEntity<String> saveUser(@Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return getErrors(result);
-        }
-        User user1 = userService.save(user);
-        if (user1 != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>(HttpStatus.CONFLICT);
-        }
     }
 }

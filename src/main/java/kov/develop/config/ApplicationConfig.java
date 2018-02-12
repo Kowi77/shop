@@ -21,6 +21,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Properties;
 
+/**
+ * Application configuration - call another config files, DB and ORM init.
+ */
+
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:util.properties")

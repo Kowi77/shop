@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -39,11 +40,13 @@ public class Good implements Serializable {
 
     @Column(name = "price")
     @NotNull(message = "Good's price must be not empty!")
+    @Min(0)
     @JsonProperty("price")
     private Double price;
 
     @Column(name = "quantity")
     @JsonProperty("quantity")
+    @Min(0)
     private Integer quantity;
 
 }

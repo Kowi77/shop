@@ -20,6 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Mapping, views, JSON, localization configure
+ */
+
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"kov.develop.mvc"})
