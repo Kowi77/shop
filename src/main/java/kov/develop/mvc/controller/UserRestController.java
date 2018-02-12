@@ -58,7 +58,7 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             LOGGER.error("Error with accept of purchasing!");
-            return new ResponseEntity<String>(new String("User already exist!"), HttpStatus.CONFLICT);
+            return new ResponseEntity<String>(new String("Purchasing failed!"), HttpStatus.CONFLICT);
         }
     }
 
@@ -73,7 +73,7 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             LOGGER.error("User with same name already exist or another error of users's saving");
-            return new ResponseEntity<String>(HttpStatus.CONFLICT);
+            return new ResponseEntity<String>(new String("User with same name already exist!"), HttpStatus.CONFLICT);
         }
     }
 }
