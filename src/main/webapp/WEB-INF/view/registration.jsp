@@ -3,7 +3,6 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <head>
     <script type="text/javascript" src="resources/js/registration.js" defer></script>
-    <title> <spring:message code="navMenu.home"/></title>
 </head>
 
 <page:template>
@@ -45,11 +44,8 @@
 
             </form>
         </div>
-
-
         <div id="success" style="display: none" class="alert alert-success"></div>
         <div id="error" style="display: none" class="alert alert-danger"></div>
-
     </jsp:body>
 
 </page:template>

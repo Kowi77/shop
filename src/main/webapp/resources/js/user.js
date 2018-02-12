@@ -25,10 +25,10 @@ function choise(id) {
     });
 }
 
-function purchase() {
+function purchase(username) {
     $.ajax({
         type: "POST",
-        url: ajaxPur + "Zlatan/",
+        url: ajaxPur + username + "/",
         data:form.serialize(),
         success: function () {
             $("#purchasing").modal("hide");

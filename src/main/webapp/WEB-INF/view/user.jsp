@@ -9,14 +9,8 @@
 
 <page:template>
 
-    <jsp:attribute name="title">Zlatan1</jsp:attribute>
-
     <jsp:body>
-
         <header></header>
-
-        <security:authentication property="principal.username" var="username"/>
-
         <div class="container-fluid">
             <h2>Список доступных товаров</h2>
             <table class="table table-striped display" id="datatable">
@@ -71,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-offset-3 col-xs-9">
-                                    <button class="btn btn-primary" type="button" onclick="purchase()">${username}
+                                    <button class="btn btn-primary" type="button" onclick="purchase('${pageContext.request.userPrincipal.name}')">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>

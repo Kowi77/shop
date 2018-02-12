@@ -3,7 +3,6 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <head>
     <script type="text/javascript" src="resources/js/admin.js" defer></script>
-    <title>Internet-shop</title>
 </head>
 
 <page:template>

@@ -39,7 +39,7 @@
 
     <h2 class= "form-signin-heading">Пожалуйста войдите</h2>
 
-    <label for= "inputUsername" class= "sr-only"><spring:message code= "username" text= "Username"/></label>
+    <label for= "inputUsername" class= "sr-only"><spring:message code= "username" text= ""/></label>
     <input id= "inputUsername" class= "form-control" name= "j_username" required autofocus/>
 
     <label for= "inputPassword" class= "sr-only"><spring:message code= "pass" text= "Password"/></label>
