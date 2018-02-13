@@ -1,5 +1,6 @@
 package kov.develop.mvc.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import kov.develop.config.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +15,13 @@ import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +32,14 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(classes = {ApplicationConfig.class, MVCConfig.class, WebConfig.class, SpringSecurityInit.class, SecurityConfig.class})
 @WebAppConfiguration
@@ -77,7 +85,32 @@ public abstract class AbstractControllerTest {
         Session s = (Session) em.getDelegate();
         SessionFactory sf = s.getSessionFactory();
         sf.getCache().evictAllRegions();
+
     }
+
+    //Util methods
+    protected List<Good> checkAndGetGoods(ResultActions resultActions) throws Exception{
+        MvcResult result = resultActions.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String resultAsString = result.getResponse().getContentAsString();
+        List<Good> list = mapper.readValue(resultAsString, new TypeReference<List<Good>>(){});
+        return list.stream().sorted((a, b) -> a.getId().compareTo(b.getId())).collect(Collectors.toList());
+    }
+
+    protected Good checkAndGetGood(ResultActions resultActions) throws Exception{
+        MvcResult result = resultActions.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String resultAsString = result.getResponse().getContentAsString();
+        return mapper.readValue(resultAsString, new TypeReference<Good>(){});
+    }
+
+
+
+
 
 
 }
