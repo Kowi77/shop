@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <head>
+    <base href="${pageContext.request.contextPath}/"/>
     <script type="text/javascript" src="resources/js/admin.js" defer></script>
 </head>
 

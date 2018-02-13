@@ -7,6 +7,7 @@
 
 
 <head>
+  <base href="${pageContext.request.contextPath}/"/>
 </head>
 
 <page:template>

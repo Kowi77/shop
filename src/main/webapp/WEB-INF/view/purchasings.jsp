@@ -4,6 +4,7 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <head>
     <script type="text/javascript" src="resources/js/admin.js" defer></script>
+    <base href="${pageContext.request.contextPath}/"/>
 </head>
 
 <page:template>

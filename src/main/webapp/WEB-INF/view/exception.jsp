@@ -5,6 +5,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 
+<head>
+    <base href="${pageContext.request.contextPath}/"/>
+</head>
+
 <page:template>
     <jsp:body>
         <div class="container">

@@ -1,6 +1,6 @@
 Инструкция по установке:
 
-1) Context path приложения "/", после деплоя через Tomcat оно доступно по адресу http://localhost:8080/shop/
+1) Разместить ROOT.war в папке webapps запущенного Tomcat (Context path приложения "/"), после чего оно будет доступно по адресу http://localhost:8080/
 2) Таблицы создаются в БД "myshop" (url=jdbc:mysql://localhost:3306/myshop, user=root, password=root, driver=com.mysql.jdbc.Driver),
     которая должна быть подключена перед запуском приложения
 

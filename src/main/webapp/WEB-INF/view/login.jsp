@@ -14,6 +14,7 @@
     <spring:url value= "/resources/css/signin.css" var= "signin" />
     <link href= "${bootstrap}" rel= "stylesheet" />
     <link href= "${signin}" rel= "stylesheet" />
+    <base href="${pageContext.request.contextPath}/"/>
 </head>
 <body>
 <form name= "form" action= "j_spring_security_check" method= "post" class= "form-signin">
