@@ -52,9 +52,12 @@ public class UserRestController {
             LOGGER.error("Binding or validation error for purchasing saving!");
             return getErrors(result);
         }
+        Integer quantity = good.getQuantity();
         Good good1 = goodService.purchase(good);
         if (good1 != null) {
-            purchasingService.save(new Purchasing(null, userService.findByUsername(username).getId(), good.getId(), LocalDate.now(), good.getPrice(), good.getQuantity()));
+            Purchasing purchasing = new Purchasing(null, userService.findByUsername(username).getId(), good.getId(), LocalDate.now(), good.getPrice(), quantity);
+            System.out.println(purchasing + " ************ " + quantity);
+            purchasingService.save(purchasing);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             LOGGER.error("Error with accept of purchasing!");
