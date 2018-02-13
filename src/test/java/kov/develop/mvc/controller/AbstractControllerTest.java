@@ -5,21 +5,28 @@ import kov.develop.config.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import kov.develop.mvc.model.Good;
+import kov.develop.mvc.model.User;
 import kov.develop.mvc.service.GoodService;
 import kov.develop.mvc.service.PurchasingService;
 import kov.develop.mvc.service.UserService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -50,6 +57,9 @@ public abstract class AbstractControllerTest {
     @Autowired
     protected PurchasingService purchasingService;
 
+    @PersistenceContext
+    EntityManager em;
+
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -59,29 +69,15 @@ public abstract class AbstractControllerTest {
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
                 .build();
-       /* Random random = new Random(100);
-        for (int i = 1; i<= 1000; i++) {
-            goodService.save(new Good(null, "Name-" + i, "Description-" + i, ((double) random.nextInt())/100, 1000));
-        }*/
-    }
-    /*//Util methods
-    protected List<MeetingForUi> checkAndGetMeetings(ResultActions resultActions) throws Exception{
-        MvcResult result = resultActions.andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andReturn();
-        String resultAsString = result.getResponse().getContentAsString();
-        List<MeetingForUi> list = mapper.readValue(resultAsString, new TypeReference<List<MeetingForUi>>(){});
-        return list.stream().sorted((a, b) -> a.getId().compareTo(b.getId())).collect(Collectors.toList());
     }
 
-    protected List<EmployerForUi> checkAndGetEmployers(ResultActions resultActions) throws Exception{
-        MvcResult result = resultActions.andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andReturn();
-        String resultAsString = result.getResponse().getContentAsString();
-        List<EmployerForUi> list = mapper.readValue(resultAsString, new TypeReference<List<EmployerForUi>>(){});
-        return list.stream().sorted((a, b) -> a.getId().compareTo(b.getId())).collect(Collectors.toList());
-    }*/
+    @Before
+    public void setUp() {
+        goodService.evictCache();
+        Session s = (Session) em.getDelegate();
+        SessionFactory sf = s.getSessionFactory();
+        sf.getCache().evictAllRegions();
+    }
+
+
 }

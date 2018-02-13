@@ -1,5 +1,5 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="/cache/ehcache.xsd"
+         xsi:noNamespaceSchemaLocation="/ehcache.xsd"
          updateCheck="false">
     <!--xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"-->
 
@@ -16,9 +16,9 @@
             diskExpiryThreadIntervalSeconds="120"
             memoryStoreEvictionPolicy="LRU"/>
 
-    <cache name="goods"
+    <cache name="kov.develop.mvc.model.Good"
            timeToLiveSeconds="60"
-           maxElementsInMemory="1000"
+           maxElementsInMemory="10000"
            eternal="false"
            overflowToDisk="false"
            maxElementsOnDisk="10000000"
@@ -26,7 +26,5 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
-    <cache name="kov.develop.mvc.model.Good"
-           maxElementsInMemory="25000"/>
 
 </ehcache>

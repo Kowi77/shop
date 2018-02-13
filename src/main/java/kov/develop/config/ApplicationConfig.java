@@ -58,13 +58,13 @@ public class ApplicationConfig {
     private String hibernateFormatSql;
     @Value("${hibernate.hbm2ddl.auto}")
     private String hibernateHbm2ddlAuto;
-    @Value("{hibernate.cache.region.factory_class}")
+    @Value("${hibernate.cache.region.factory_class}")
     private String hibernateCacheRegionFactoryClass;
-    @Value("{hibernate.cache.use_second_level_cache}")
+    @Value("${hibernate.cache.use_second_level_cache}")
     private String hibernateCacheUseSecondLevelCache;
-    @Value("{hibernate.cache.use_query_cache}")
+    @Value("${hibernate.cache.use_query_cache}")
     private String hibernateCacheUseQueryCache;
-    @Value("{net.sf.ehcache.configurationResourceName}")
+    @Value("${net.sf.ehcache.configurationResourceName}")
     private String netSfEhcacheConfigurationResourceName;
 
     @Value("classpath:dbschema.sql")

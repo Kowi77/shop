@@ -7,6 +7,10 @@ public class AdminControllerTest extends AbstractControllerTest {
 
     @Test
     public void checkCache() {
-        CacheManager.ALL_CACHE_MANAGERS.forEach(a -> System.out.println(a.getCacheNames()));
+        goodService.findAll();
+        goodService.findAll();
+        goodService.findAll();
+        int i = CacheManager.ALL_CACHE_MANAGERS.get(0).getCache("kov.develop.mvc.model.Good").getSize();
+        System.out.println("*** - " + i);
     }
 }

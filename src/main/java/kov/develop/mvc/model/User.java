@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "id")
 @EqualsAndHashCode(exclude = "id")
 public class User implements Serializable {

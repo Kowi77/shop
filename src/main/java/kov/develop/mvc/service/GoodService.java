@@ -29,19 +29,19 @@ public class GoodService {
         this.repository = repository;
     }
 
-    @Cacheable("goods")
+    @Cacheable("kov.develop.mvc.model.Good")
     public List<Good> findAll() {
         LOGGER.info("Recieving all goods for ADMIN");
         return repository.findAll();
     }
 
-    @Cacheable("goods")
+    @Cacheable("kov.develop.mvc.model.Good")
     public List<Good> findAllNotZeroQuantity() {
         LOGGER.info("Recieving all goods for USER");
         return repository.findAllByQuantityGreaterThan(0);
     }
 
-    @CacheEvict(value = "goods")
+    @CacheEvict("kov.develop.mvc.model.Good")
     @Transactional
     public Good save(Good good) {
         Good good1 = repository.save(good);
@@ -53,7 +53,7 @@ public class GoodService {
         return good1;
     }
 
-    @CacheEvict("goods")
+    @CacheEvict("kov.develop.mvc.model.Good")
     @Transactional
     public Good purchase(Good good) {
         Integer quantity = get(good.getId()).getQuantity();
@@ -70,15 +70,20 @@ public class GoodService {
         return good1;
     }
 
-    @Cacheable("goods")
+    @Cacheable("kov.develop.mvc.model.Good")
     public Good get(Integer integer) {
         return repository.findOne(integer);
     }
 
-    @CacheEvict("goods")
+    @CacheEvict("kov.develop.mvc.model.Good")
     @Transactional
     public void delete(Integer id) {
         DATA_LOGGER.info("Good with ID " + id + "successfully deleted");
         repository.delete(id);
+    }
+
+    @CacheEvict("kov.develop.mvc.model.Good")
+    public void evictCache() {
+        // only for evict cache
     }
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "goods")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Cacheable
 @Entity
 @Table(name = "goods")
