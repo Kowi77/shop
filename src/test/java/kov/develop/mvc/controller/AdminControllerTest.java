@@ -31,16 +31,6 @@ public class AdminControllerTest extends AbstractControllerTest {
         Assert.assertArrayEquals(TestData.GOODS, result.toArray());
     }
 
- /*   @Test
-    public void GoodSaveTest() throws Exception {
-        System.out.println(mapper.writeValueAsString(TestData.GOOD_NEW) + "********");
-        ResultActions resultActions = mockMvc.perform(post("/good/save")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(TestData.GOOD_NEW)))
-                .andExpect(status().isOk());
-        Assert.assertArrayEquals(TestData.GOODS_WITH_NEW, goodService.findAll().toArray());
-    }*/
-
     @Test
     public void GetGoodTest() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/good/2"));

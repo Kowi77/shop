@@ -25,11 +25,10 @@ public class TestData {
     public static final Good GOOD_4 = new Good(4, "Meet3", "Beef3", 9.56, 1000);
     public static final Good GOOD_5 = new Good(5, "Meet4", "Beef2", 15.68, 1000);
     public static final Good GOOD_6 = new Good(6, "Meet5", "Beef1", 300.54, 1000);
-    public static final Good GOOD_NEW = new Good(2, "Meet111", "Beef111", 111.11, 111);
+    public static final Good GOOD_ZERO = new Good(2, "Meet111", "Beef111", 111.11, 0);
 
     public static final Good[] GOODS = {GOOD_1, GOOD_2, GOOD_3, GOOD_4, GOOD_5, GOOD_6};
-    public static final Good[] GOODS_WITH_NEW = {GOOD_1, GOOD_NEW, GOOD_3, GOOD_4, GOOD_5, GOOD_6};
-    public static final Good[] GOODS_WITHOUT_ONE = {GOOD_2, GOOD_3, GOOD_4, GOOD_5, GOOD_6};
+    public static final Good[] GOODS_WITHOUT_ONE = {GOOD_1, GOOD_3, GOOD_4, GOOD_5, GOOD_6};
 
 
     public static final PurchasingDto[] PURCHASINGS = {new PurchasingDto(1,"Andrey","Meet", LocalDate.parse("2017-12-12"),3.0,3)};
