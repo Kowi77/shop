@@ -15,7 +15,7 @@ public class Datalogger {
     static
     {
         try {
-            DATA_LOGGER.addHandler(new FileHandler("E:/Java/shop/logs/datachange.log"));
+            DATA_LOGGER.addHandler(new FileHandler("%tdatachange.log"));
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("Datalogger couldn't find a logfile!");

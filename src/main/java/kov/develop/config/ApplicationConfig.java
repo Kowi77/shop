@@ -50,6 +50,22 @@ public class ApplicationConfig {
     private String jdbcUserName;
     @Value("${jdbc.password}")
     private String jdbcPassword;
+    @Value("${hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${hibernate.show_sql}")
+    private String hibernateShowSql;
+    @Value("${hibernate.format_sql}")
+    private String hibernateFormatSql;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHbm2ddlAuto;
+    @Value("{hibernate.cache.region.factory_class}")
+    private String hibernateCacheRegionFactoryClass;
+    @Value("{hibernate.cache.use_second_level_cache}")
+    private String hibernateCacheUseSecondLevelCache;
+    @Value("{hibernate.cache.use_query_cache}")
+    private String hibernateCacheUseQueryCache;
+    @Value("{net.sf.ehcache.configurationResourceName}")
+    private String netSfEhcacheConfigurationResourceName;
 
     @Value("classpath:dbschema.sql")
     private Resource dbschemaSqlScript;
@@ -98,10 +114,14 @@ public class ApplicationConfig {
         em.setJpaVendorAdapter(vendorAdapter);
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-        jpaProperties.put("hibernate.show_sql",true);
-        jpaProperties.put("hibernate.format_sql","false");
-        jpaProperties.put("hibernate.hbm2ddl.auto","update");
+        jpaProperties.put("hibernate.dialect", hibernateDialect);
+        jpaProperties.put("hibernate.show_sql", hibernateShowSql);
+        jpaProperties.put("hibernate.format_sql",hibernateFormatSql);
+        jpaProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
+        jpaProperties.put("hibernate.cache.region.factory_class", hibernateCacheRegionFactoryClass);
+        jpaProperties.put("hibernate.cache.use_second_level_cache", hibernateCacheUseSecondLevelCache);
+        jpaProperties.put("hibernate.cache.use_query_cache", hibernateCacheUseQueryCache);
+        jpaProperties.put("net.sf.ehcache.configurationResourceName", netSfEhcacheConfigurationResourceName);
 
         em.setJpaProperties(jpaProperties);
         return em;

@@ -40,7 +40,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
             User user = repository.findByUsername(username);
             if (user == null) {
                 LOGGER.error("User {} not found", username);
-                return null;
+                throw new UsernameNotFoundException(username);
             }
             Set<GrantedAuthority> auth = new HashSet<>();
             auth.add(new SimpleGrantedAuthority(user.getRole()));
@@ -48,7 +48,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(username, user.getPassword(), ENABLED, NOT_EXPIRED, NOT_CREDENTIALS_EXPIRED, NOT_LOCKED, auth);
         } catch (Exception e) {
             LOGGER.error("User {} not found", username);
-            throw new UsernameNotFoundException(e.getMessage());
+            return null;
         }
     }
 }

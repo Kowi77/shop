@@ -1,11 +1,11 @@
 package kov.develop.mvc.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import net.sf.ehcache.CacheManager;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,10 +13,13 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "goods")
+@Cacheable
 @Entity
 @Table(name = "goods")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "id")
 @EqualsAndHashCode(exclude = "id")
 public class Good implements Serializable {

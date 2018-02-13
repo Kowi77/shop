@@ -20,7 +20,6 @@ import javax.servlet.ServletRegistration;
 @ComponentScan(basePackages = "kov.develop.mvc.controller")
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-     //added to load spring security filter in root context (created in onStartup())
     @Override
     protected Class<?>[] getRootConfigClasses() {
 

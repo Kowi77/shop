@@ -20,11 +20,11 @@ public class UserService {
     public UserRepository repository;
 
     @Transactional
-    public synchronized User save(User user) {
+    public User save(User user) {
         User user1 = repository.findByUsername(user.getUsername());
         if (user1 == null) {
             user1 = repository.save(user);
-            DATA_LOGGER.info("User" +  user.getUsername() + " successfully saved");
+            DATA_LOGGER.info("User " +  user.getUsername() + " successfully saved");
         } else {
             LOGGER.warn("User saving was failed!");
             user1 = null;

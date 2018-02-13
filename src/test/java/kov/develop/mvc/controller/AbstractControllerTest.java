@@ -4,6 +4,7 @@ import kov.develop.config.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import kov.develop.mvc.model.Good;
 import kov.develop.mvc.service.GoodService;
 import kov.develop.mvc.service.PurchasingService;
 import kov.develop.mvc.service.UserService;
@@ -20,6 +21,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @ContextConfiguration(classes = {ApplicationConfig.class, MVCConfig.class, WebConfig.class, SpringSecurityInit.class, SecurityConfig.class})
@@ -29,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 public abstract class AbstractControllerTest {
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
+    protected static AtomicInteger counter = new AtomicInteger(0);
 
     static {
         CHARACTER_ENCODING_FILTER.setEncoding("UTF-8");
@@ -54,6 +59,10 @@ public abstract class AbstractControllerTest {
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
                 .build();
+       /* Random random = new Random(100);
+        for (int i = 1; i<= 1000; i++) {
+            goodService.save(new Good(null, "Name-" + i, "Description-" + i, ((double) random.nextInt())/100, 1000));
+        }*/
     }
     /*//Util methods
     protected List<MeetingForUi> checkAndGetMeetings(ResultActions resultActions) throws Exception{

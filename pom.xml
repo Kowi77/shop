@@ -25,6 +25,8 @@
         <logback.version>1.0.13</logback.version>
         <!-- Hibernate / JPA -->
         <hibernate.version>5.2.10.Final</hibernate.version>
+        <!--Tools-->
+        <ehcache.version>2.10.4</ehcache.version>
         <!-- Spring Data -->
         <spring-framework.data.version>1.9.1.RELEASE</spring-framework.data.version>
         <!-- Spring Security -->
@@ -129,6 +131,11 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
         <!--Hibernate validator (contains @NotEmpty)-->
         <dependency>
@@ -186,11 +193,11 @@
         </dependency>
 
         <!--GUI-->
-        <dependency>
+  <!--      <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>${webjars-bootstrap.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery</artifactId>
@@ -226,6 +233,13 @@
             <version>1.16.0</version>
         </dependency>
 
+        <!--Cache-->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+
     </dependencies>
     <!--http://startbootstrap.com/template-overviews/modern-business/  this is theme-->
 
@@ -242,6 +256,14 @@
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
