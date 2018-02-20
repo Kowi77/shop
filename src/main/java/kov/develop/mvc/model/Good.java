@@ -21,7 +21,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "id")
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = {"id", "quantity"})
 public class Good implements Serializable {
 
     @Id

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -54,11 +55,15 @@ public class GoodService {
     }
 
     @CacheEvict("kov.develop.mvc.model.Good")
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Good purchase(Good good) {
-        Integer quantity = get(good.getId()).getQuantity();
+        Good goodDb = get(good.getId());
+        Integer quantity = goodDb.getQuantity();
         Good good1 = null;
-        if (quantity >= good.getQuantity()) {
+        if (goodDb.equals(good)) {
+            LOGGER.error("Purchasing was failed, attemp of illegal good's attributes using");
+            return good1;
+        } else if (goodDb.getQuantity() >= good.getQuantity()) {
                 good.setQuantity(quantity - good.getQuantity());
                 good1 = save(good);
         }

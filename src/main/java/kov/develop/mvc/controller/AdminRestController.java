@@ -56,8 +56,14 @@ public class AdminRestController {
             LOGGER.error("Binding or validation error for good saving!");
             return getErrors(result);
         }
-        goodService.save(good);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Good good1 = goodService.save(good);
+        if (good1 != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            LOGGER.error("{} saving was failed!", good);
+            return new ResponseEntity<String>("Good's saving was failed!", HttpStatus.CONFLICT);
+        }
+
     }
 
     @Secured(value={"ADMIN", "USER"})
@@ -68,9 +74,7 @@ public class AdminRestController {
 
     @Secured(value={"ADMIN"})
     @DeleteMapping("good/{id}")
-    public void deleteGood(@PathVariable("id") int id){
-        goodService.delete(id);
-    }
+    public void deleteGood(@PathVariable("id") int id){ goodService.delete(id); }
 
     @Secured(value={"ADMIN"})
     @GetMapping("admin/purchasings")

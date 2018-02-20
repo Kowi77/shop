@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static kov.develop.mvc.utils.Datalogger.DATA_LOGGER;
@@ -19,7 +20,7 @@ public class UserService {
     @Autowired
     public UserRepository repository;
 
-    @Transactional
+    @Transactional (isolation = Isolation.SERIALIZABLE)
     public User save(User user) {
         User user1 = repository.findByUsername(user.getUsername());
         if (user1 == null) {

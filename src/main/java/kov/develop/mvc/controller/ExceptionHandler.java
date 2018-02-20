@@ -21,7 +21,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                          Object o, Exception e) {
-        LOGGER.error("ErrorLog: ", e.toString());
+        LOGGER.error("ErrorLog: {}", e.toString());
         return new ModelAndView("/exception", "exceptionMsg", "ExceptionHandler msg: " + e.toString());
     }
 }

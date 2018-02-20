@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +50,11 @@ public class UserRestController {
     @Secured(value={"USER"})
     @PostMapping("user/purchase/{username}")
     public ResponseEntity<String> purchasing(@Valid Good good, @PathVariable("username") String username, BindingResult result) {
-        if (result.hasErrors()) {
+        org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!authUser.getUsername().equals(username)) {
+            LOGGER.error("Attemp of unauthority operation!");
+            return new ResponseEntity<String>(new String("Purchasing failed, you haven't authority for this!"), HttpStatus.UNAUTHORIZED);
+        } else if (result.hasErrors()) {
             LOGGER.error("Binding or validation error for purchasing saving!");
             return getErrors(result);
         }
@@ -56,7 +62,6 @@ public class UserRestController {
         Good good1 = goodService.purchase(good);
         if (good1 != null) {
             Purchasing purchasing = new Purchasing(null, userService.findByUsername(username).getId(), good.getId(), LocalDate.now(), good.getPrice(), quantity);
-            System.out.println(purchasing + " ************ " + quantity);
             purchasingService.save(purchasing);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
